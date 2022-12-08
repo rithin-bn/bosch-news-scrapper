@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>bosch NEWS</title>
+    <style>
+        .main{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .link{
+            width: 90%;
+            text-decoration:none;
+        }
+        .card{
+            display: flex;
+            flex-direction: column;
+            padding: 30;
+            margin: 10;
+            background-color: aliceblue;
+            box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.3);
+            color: black;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .card:active{
+            background-color: rgb(223, 240, 255)
+        }
+        .news{
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding-bottom: 10;
+        }
+        .title{
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 20;
+        }
+        .date{
+            color: #454545;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <span class="title">BOSCH DEDICATED NEWS</span>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $.getJSON("http://127.0.0.1:8000/data.json", function(json){
+                obj = json
+                len = json.data[0].length
+                for(let i = 0; i < len; i++){
+                    $(".main").append('<a class="link" target="blank_"><div class="card" onclick="console.log(this)"><span class="news">news here</span><span class="date">date here</span></div></a>');
+                    document.querySelectorAll("a")[i].href = json.data[0][i].newsLink
+                    document.querySelectorAll(".news")[i].innerText = json.data[0][i].newsHeading
+                    document.querySelectorAll(".date")[i].innerText = json.data[0][i].date
+                }
+            });
+        });
+    </script>
+</body>
+</html>
